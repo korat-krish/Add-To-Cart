@@ -33,20 +33,3 @@ Display = () => {
 
 }
 Display();
-//  product = JSON.parse(localStorage.getItem("product"));
-// function AddToCart(product){
-//     let cart = JSON.parse(localStorage.getItem("Cartitem"));
-
-//     let curIndex = cart.findIndex(item => item.id == product.id);
-
-//     if(curIndex !== -1){
-//         cart[curIndex].qty+=1;
-//     }
-//     else
-//     {
-//         product.qty = 1;
-//         cart.push(product);
-//     }
-
-//     localStorage.setItem("Cartitem",JSON.stringify(cart));
-// }
