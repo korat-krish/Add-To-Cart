@@ -1810,10 +1810,10 @@ let DisplayProducts = () => {
           <img src="${rec.thumbnail}" class="card-img-top ratio-4x3" alt="Product Image">
           <div class="card-body">
             <h5 class="card-title text-wrap" style="width: 18rem;">${rec.title}</h5>
-            <p class="card-text text-success fw-bold">$ ${rec.price}</p>
-            <div class="d-flex justify-content-between">
-              <button class="btn btn-primary" onclick="AddToCart(${index})">Add to Cart</button>
-              <button class="btn btn-success">Buy Now</button>
+            <p class="card-text text-success fw-bold text-center">$ ${rec.price}</p>
+            <div class="d-flex justify-content-between flex-wrap">
+              <button class="col-12 btn btn-primary mt-2 " onclick="AddToCart(${index})">Add to Cart</button>
+              <button class="col-12 btn btn-success mt-2" onclick="AddToCart(${index})">Buy Now</button> 
             </div>
           </div>
         </div>
@@ -1827,12 +1827,12 @@ DisplayProducts();
 // badge count
 let count = JSON.parse(localStorage.getItem("icon")) || 0;
 let badge = document.querySelector(".badge");
-if(badge) badge.innerHTML = count;
+if (badge) badge.innerHTML = count;
 
 // Add to cart
 function AddToCart(index) {
   count++;
-  if(badge) badge.innerHTML = count;
+  if (badge) badge.innerHTML = count;
   localStorage.setItem('icon', JSON.stringify(count));
 
   let products = JSON.parse(localStorage.getItem("products")) || [];
@@ -1840,28 +1840,26 @@ function AddToCart(index) {
 
   let selected = products[index];
 
-  cart.push(products[index]);  
+  cart.push(products[index]);
   localStorage.setItem("Cartitem", JSON.stringify(cart));
-   cart = JSON.parse(localStorage.getItem("Cartitem"));
+  cart = JSON.parse(localStorage.getItem("Cartitem"));
 
-    let curIndex = cart.findIndex(item => item.id == product.id);
+  let curIndex = cart.findIndex(item => item.id == product.id);
 
-    if(curIndex !== -1){
-        cart[curIndex].qty+=1;
-    }
-    else
-    {
-        product.qty = 1;
-        cart.push(product);
-    }
+  if (curIndex !== -1) {
+    cart[curIndex].qty += 1;
+  }
+  else {
+    product.qty = 1;
+    cart.push(product);
+  }
 
-    localStorage.setItem("Cartitem",JSON.stringify(cart));
+  localStorage.setItem("Cartitem", JSON.stringify(cart));
 }
 
-increseQty=()=>{
-  cart.map((element)=>{
-    if(element.id==id){
-
+increseQty = () => {
+  cart.map((element) => {
+    if (element.id == id) {
     }
   })
 }
