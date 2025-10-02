@@ -2,66 +2,183 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cart</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="./CSS/all.min.css"> -->
-    <link rel="stylesheet" href="CSS/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart Page UI</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f8f9fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .cart-container {
+      margin: 40px auto;
+      max-width: 1100px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .cart-item {
+      border-bottom: 1px solid #e9ecef;
+      padding: 15px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+
+    .item-info {
+      flex: 2;
+    }
+
+    .item-info h6 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .item-info p {
+      color: #6c757d;
+      margin: 0;
+    }
+
+    .item-price {
+      flex: 1;
+      font-weight: 600;
+      color: #28a745;
+    }
+
+    .item-qty {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .item-qty button {
+      border: none;
+      background: #e9ecef;
+      padding: 5px 12px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .item-qty button:hover {
+      background: #d6d6d6;
+    }
+
+    .item-qty span {
+      margin: 0 12px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .item-total {
+      flex: 1;
+      font-weight: 600;
+      text-align: center;
+      color: #007bff;
+    }
+
+    .item-remove {
+      flex: 0.5;
+      text-align: right;
+    }
+
+    .item-remove button {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: #dc3545;
+      cursor: pointer;
+    }
+
+    .summary {
+      margin-top: 25px;
+      padding: 20px;
+      background: #f1f3f5;
+      border-radius: 10px;
+    }
+
+    .summary .total {
+      font-size: 20px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 
 <body>
-    <header>
-        <div class="bg-black d-flex p-2">
-            <div class="col-6">
-                <h2 class="text-white">
-                    Cart
-                </h2>
-            </div>
-            <div class="col-6 d-flex justify-content-end ">
-                <a href="./index.html">
-                    <button class="btn btn-light position-relative">Home</button>
-                    <!-- <span class="position-absolute translate-middle badge rounded-pill bg-danger"
-                        style="top:12px; right: -11px;">
-                        0
-                    </span> -->
-                    </button>
-                </a>
-            </div>
+  <header>
+    <div class="bg-black d-flex p-2">
+      <div class="col-6">
+        <h2 class="text-white">
+          Shop
+        </h2>
+      </div>
+      <div class="col-6 d-flex justify-content-end ">
+        <a href="./index.html">
+          <button class="btn btn-light position-relative">home </button>
+
+          </button>
+        </a>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="cart-container">
+      <h2 class="cart-title">🛒 Your Cart</h2>
+
+      <!-- Dynamic Cart Items will go here -->
+      <div id="cartItems"></div>
+
+      <!-- Summary -->
+      <div class="summary">
+        <hr>
+        <div class="d-flex justify-content-between total">
+          <span>Total</span>
+          <span id="cartTotal">$0</span>
         </div>
-    </header>
-    <main style="padding-top:100px;">
-        <section>
-            <div class="container">
-                <div class="row">
-                    <table class="table bg-info m-0">
-                        <thead>
-                            <tr class="d-flex">
-                                <th scope="col" class="col-3 d-flex justify-content-center">image</th>
-                                <th scope="col" class="col-3 d-flex justify-content-center">Name</th>
-                                <th scope="col" class="col-2 d-flex justify-content-center">Qty</th>
-                                <th scope="col" class="col-1 d-flex justify-content-center">Price</th>
-                                <th scope="col" class="col-3 d-flex justify-content-center">Total</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-        </section>
-        <section>
-            <div class="container">
-                <div class="row" id="row1">
-                    <tbody>
-                             
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-    </main>
-    <script src="JS/script.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        <button class="btn btn-success checkout-btn">Proceed to Checkout</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/cart.js"></script>
 </body>
 
 </html>
