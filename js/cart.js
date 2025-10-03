@@ -1,53 +1,76 @@
+function display() {
+  let cart = JSON.parse(localStorage.getItem('Cartitem')) || [];
+  let row = document.getElementById('cart-item');
+  let checkout = document.querySelector('.checkout-box');
+  let str = "";
+  let rts = "";
+  let sum = 0;
+  let subqty = 0;
+    cart.forEach((element, index) => {
+    str += `
+    <tr>
+        <td>
+            <div class="d-flex align-items-center">
+              <img src="${element.thumbnail}" alt="">
+              <span class="ms-3">${element.title}</span>
+            </div>
+        </td>
+        <td>₹${element.price}</td>
+        
+        <td>
+          <div class="qty-box">
+            <button class="btn btn-sm btn-outline-danger" onclick="decreaseQty(${index})">-</button>
+            <span>${element.quantity}</span>
+            <button class="btn btn-sm btn-outline-success" onclick="increaseQty(${index})">+</button>
+          </div>
+        </td>
+        
+        <td>₹${element.price * element.quantity}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-dark" onclick="deleteItem(${index})">🗑️</button>
+        </td>
+    </tr>
+    `;
 
-Display = () => {
-    let cartRec = JSON.parse(localStorage.getItem('Cartitem')) || [];
-    let str = ''
-    let container = document.querySelector('#cartItems');
+    row.innerHTML = str;
 
-    cartRec.forEach((ele, index) => {
-        str += `
-        <div class="cart-item">
-        <img src="${ele.thumbnail}" alt="Product">
-        <div class="item-info">
-          <h6>${ele.title}</h6>
-          
-        </div>
-        <div class="item-price">$${ele.price}</div>
-        <div class="item-qty">
-          <button >-</button>
-          <span class="cqty">${ele.qty}</span>
-          <button onclick="increse(${index})">+</button>
-        </div>
-        <div class="item-total">$${ele.price * ele.qty}</div>
-        <div class="item-remove">
-          <button>🗑</button>
-        </div>
-      </div>
-        `;
-    });
-    container.innerHTML = str;
+    subqty += element.quantity;
+    sum += Math.round(element.price * element.quantity);
 
+    rts = `
+      <h5>Order Summary</h5>
+      <hr>
+      <p>Total Quantity: ${subqty}</p>
+      <p>Shipping: ₹100</p>
+      <p>Sub Total : ₹${sum}</p>
+      <h5>Total: ₹${100 + sum}</h5>
+      <a href="#" class="btn btn-success w-100 mt-3">Checkout</a>
+    `;
+    checkout.innerHTML = rts;
+  });
 }
-Display();
+display();
 
-function duplicate(id) {
+function increaseQty(index) {
+  let cart = JSON.parse(localStorage.getItem('Cartitem')) || [];
+  cart[index].quantity += 1;
+  localStorage.setItem('Cartitem', JSON.stringify(cart));
+  display();
+}
+function decreaseQty(index) {
+  let cart = JSON.parse(localStorage.getItem('Cartitem')) || [];
+  if (cart[index].quantity > 1) {
+    cart[index].quantity -= 1;
+  } 
+  localStorage.setItem('Cartitem', JSON.stringify(cart));
+  display();
+}
 
-    let cart = JSON.parse(localStorage.getItem("Cartitem")) || [];
-
-    if (cart.find((element) => (element.id == id))) {
-        if (cart.map((element) => (element.id == id))) {
-            cart.qty += 1;
-            localStorage.setItem("Cartitem", JSON.stringify(cart));
-
-        }
-        else {
-            cart.qty = 1;
-            localStorage.setItem("Cartitegitm", JSON.stringify(cart));
-        }
-    }
-    else {
-        cart.qty = 1;
-        localStorage.setItem("Cartitem", JSON.stringify(cart));
-    }
-    Display();
+function deleteItem(index) {
+  
+  let cart = JSON.parse(localStorage.getItem('Cartitem')) || [];
+   
+  cart.splice(index, 1);
+  localStorage.setItem('Cartitem', JSON.stringify(cart));
+  display();
 }
